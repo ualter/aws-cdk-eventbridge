@@ -1,0 +1,22 @@
+[
+    {
+      "Source": "com.amazon.alexa.english",
+      "Detail": "{ \"key1\": \"value1\", \"key2\": \"value2\" }",
+      "Resources": [
+        "NICK IS VERY COOL",
+        "resource2"
+      ],
+      "DetailType": "myDetailType",
+      "EventBusName": "mycdkappMyLanguageBusB37F1DF7"
+    },
+    {
+      "Source": "com.amazon.alexa.french",
+      "Detail": "{ \"key1\": \"value3\", \"key2\": \"value4\" }",
+      "Resources": [
+        "Nick is NOT VERY COOL",
+        "resource2"
+      ],
+      "DetailType": "myDetailType",
+      "EventBusName": "mycdkappMyLanguageBusB37F1DF7"
+     }
+  ]
