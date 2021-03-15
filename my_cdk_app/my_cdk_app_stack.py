@@ -1,7 +1,5 @@
 from aws_cdk import (
     aws_iam as iam,
-    aws_sqs as sqs,
-    aws_sns as sns,
     aws_lambda as _lambda,
     aws_events as _events,
     aws_events_targets as _targets,
@@ -9,31 +7,29 @@ from aws_cdk import (
     core
 )
 
+from services.lambdaStack import LambdaStack
+from services.eventBridgeStack import EventBridgeStack
+
 class MyCdkAppStack(core.Stack):
 
     def __init__(self, scope: core.Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        myLambda = _lambda.Function(
-            self, "MyEventProcessor",
-            runtime=_lambda.Runtime.PYTHON_3_7,
-            code=_lambda.Code.asset('lambda'),
-            #code=_lambda.InlineCode("def main(event, context):\n\tprint(event)\n\treturn {'statusCode': 200, 'body': 'Hello, World'}"),
-            handler='eventHandler.handler',
-        )
+        lambdaStack   = LambdaStack(self, "MyEventProcessor")
+        myLanguageBus = EventBridgeStack(self,"MyLanguageBus")
 
-        myEventBus = _events.EventBus(self, "MyLanguageBus")
         core.CfnOutput(self, 
            "BusName",
            description="Event Bus Name",
-           value=myEventBus.event_bus_name
+           value=myLanguageBus.eventBus.event_bus_name
         )
 
-        myRule = _events.Rule(self, "LambdaProcessorRule",
-            rule_name="MyRule",
-            event_bus=myEventBus,
-            event_pattern=_events.EventPattern(source=['com.amazon.alexa.english']),
-            targets=[_targets.LambdaFunction(myLambda)]
+        myRule = myLanguageBus.createRule(
+            id="LambdaProcessorRule",
+            name="MyRule",
+            eventPattern="com.amazon.alexa.english",
+            _targets=[_targets.LambdaFunction(lambdaStack.lambdaEventBusRuleTarget)]
+
         )
 
         core.CfnOutput(self, 
