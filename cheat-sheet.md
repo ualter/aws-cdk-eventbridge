@@ -38,4 +38,16 @@ curl ${ENDPOINT}french --header 'Content-type:application/json' --data '{"UserID
 curl ${ENDPOINT}english --header 'Content-type:application/json' --data '{"UserID":"1234567"}'
 # LanguageName doesn't match the pattern we specified
 curl ${ENDPOINT}french --header 'Content-type:application/json' --data '{"UserID":"abcdefg","LanguageName":"aaa-bb"}'
+
+
+# V3 WebSocket
+# To Test (site online connection WebSocket)
+https://www.websocket.org/echo.html
+
+Location: URL of the WebSocket API Gateway
+Messages: 
+{"UserID":"1234567","language":"english"}
+{"UserID":"1234567","language":"german"}
+{"UserID":"1234567","language":"french"}
+
 ```

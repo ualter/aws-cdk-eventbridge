@@ -13,6 +13,7 @@ from services.lambdaStack import LambdaStack
 from services.eventBridgeStack import EventBridgeStack
 from services.iamStack import IamStack
 from services.apiGatewayStack import ApiGatewayStack
+from services.webSocketApiGtwStack import WebSocketApiGtwStack
 
 class MyCdkAppStack(core.Stack):
 
@@ -22,7 +23,8 @@ class MyCdkAppStack(core.Stack):
         lambdaStack   = LambdaStack(self, "MyEventProcessor")
         myLanguageBus = EventBridgeStack(self,"MyLanguageBus")
         iamStack = IamStack(self, "IamEventBridgeStack", eventBus=myLanguageBus.eventBus)
-        iamApiGateway = ApiGatewayStack(self, "MyRestAPI",apigw_role=iamStack.apiGatewayRole, eventBus=myLanguageBus.eventBus)
+        #iamApiGateway = ApiGatewayStack(self, "MyRestAPI",apigw_role=iamStack.apiGatewayRole, eventBus=myLanguageBus.eventBus)
+        webSocketApiGtwStack = WebSocketApiGtwStack(self, "MyWsRestAPI",apigw_role=iamStack.apiGatewayRole, eventBus=myLanguageBus.eventBus)
 
 
         core.CfnOutput(self, 
