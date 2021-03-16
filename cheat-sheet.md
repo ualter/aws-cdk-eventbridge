@@ -1,4 +1,4 @@
-
+```bash
 # Just in case, might be useful
 python -m ensurepip --upgrade
 python -m pip install --upgrade pip
@@ -19,3 +19,7 @@ cdk destroy
 # Testing
 # Don't forget to change the Eventbus Name before, accordingly with the output of the "cdk deploy"
 aws events put-events --entries file://putevents.json
+
+ENDPOINT=https://9bvduztml5.execute-api.us-west-2.amazonaws.com/prod/
+curl -X POST $ENDPOINT
+```

@@ -1,3 +1,5 @@
+import os
+
 from aws_cdk import (
     aws_iam as iam,
     aws_lambda as _lambda,
@@ -9,6 +11,8 @@ from aws_cdk import (
 
 from services.lambdaStack import LambdaStack
 from services.eventBridgeStack import EventBridgeStack
+from services.iamStack import IamStack
+from services.apiGatewayStack import ApiGatewayStack
 
 class MyCdkAppStack(core.Stack):
 
@@ -17,6 +21,9 @@ class MyCdkAppStack(core.Stack):
 
         lambdaStack   = LambdaStack(self, "MyEventProcessor")
         myLanguageBus = EventBridgeStack(self,"MyLanguageBus")
+        iamStack = IamStack(self, "IamEventBridgeStack", eventBus=myLanguageBus.eventBus)
+        iamApiGateway = ApiGatewayStack(self, "MyRestAPI",apigw_role=iamStack.apiGatewayRole, eventBus=myLanguageBus.eventBus)
+
 
         core.CfnOutput(self, 
            "BusName",

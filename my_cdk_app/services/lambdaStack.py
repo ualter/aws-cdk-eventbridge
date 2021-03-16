@@ -1,5 +1,4 @@
 from aws_cdk import (
-    aws_iam as iam,
     aws_lambda as _lambda,
     aws_events as _events,
     aws_events_targets as _targets,
