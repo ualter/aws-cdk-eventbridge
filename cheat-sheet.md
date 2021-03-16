@@ -20,6 +20,22 @@ cdk destroy
 # Don't forget to change the Eventbus Name before, accordingly with the output of the "cdk deploy"
 aws events put-events --entries file://putevents.json
 
+# V1 API Gateway
 ENDPOINT=https://9bvduztml5.execute-api.us-west-2.amazonaws.com/prod/
 curl -X POST $ENDPOINT
+
+# V2 API Gateway
+# Valid Re (Defined Model Respected)
+curl ${ENDPOINT}english --header 'Content-type:application/json' --data '{"UserID":"1234567","LanguageName":"en-us"}'
+curl ${ENDPOINT}french --header 'Content-type:application/json' --data '{"UserID":"abcdefg","LanguageName":"en-gb"}'
+
+# Invalid Request (Defined Model Disrespected)
+# UserID is missing
+curl ${ENDPOINT}english --header 'Content-type:application/json' --data '{"LanguageName":"en-us"}'
+# UserID is the wrong 'type'
+curl ${ENDPOINT}french --header 'Content-type:application/json' --data '{"UserID":100,"LanguageName":"en-gb"}'
+# LanguageName is missing
+curl ${ENDPOINT}english --header 'Content-type:application/json' --data '{"UserID":"1234567"}'
+# LanguageName doesn't match the pattern we specified
+curl ${ENDPOINT}french --header 'Content-type:application/json' --data '{"UserID":"abcdefg","LanguageName":"aaa-bb"}'
 ```
