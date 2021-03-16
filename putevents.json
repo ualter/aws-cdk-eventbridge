@@ -7,7 +7,7 @@
         "resource2"
       ],
       "DetailType": "myDetailType",
-      "EventBusName": "mycdkappMyLanguageBusB37F1DF7"
+      "EventBusName": "mycdkappMyLanguageBusF9C152DE"
     },
     {
       "Source": "com.amazon.alexa.french",
@@ -17,6 +17,6 @@
         "resource2"
       ],
       "DetailType": "myDetailType",
-      "EventBusName": "mycdkappMyLanguageBusB37F1DF7"
+      "EventBusName": "mycdkappMyLanguageBusF9C152DE"
      }
   ]

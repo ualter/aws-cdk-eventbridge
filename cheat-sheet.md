@@ -14,3 +14,8 @@ cdk list
 cdk synth
 cdk deploy
 cdk destroy
+
+
+# Testing
+# Don't forget to change the Eventbus Name before, accordingly with the output of the "cdk deploy"
+aws events put-events --entries file://putevents.json
